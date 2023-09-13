@@ -1,0 +1,24 @@
+UserID,Q7S,Q10S,Q16S,Q18S
+1,,,,
+2,specificity,textPrimary,details,immediate response
+3,"clear&concise, unbiased",no text,verify reliability,threat
+4,relevance&details,NA,NA,NA
+5,relevance,textPrimary,"read, verify reliability",content
+6,relevance,NA,NA,NA
+7,clear&purpose,graph,context,content
+8,"clear&concise, accurate",graph,NA,NA
+9,details,graph,"read, context",content
+10,concise&clear,graph,context,threat
+11,details,graph&text ,details,NA
+12,relevance&clear,depends,"verify reliability, connection",threat
+13,specificity,textPrimary,verify reliability,NA
+14,clear,graph,NA,content
+15,"clear&concise, graphs",graph,"read , context",content
+16,concise,graph,verify reliability,immediate response
+17,clear&concise,graph&text,"read, categorize",process
+18,concise&purpose,onlyText,details,immediate response
+19,concision,graph&text,"read, verify reliability",content
+20,specificity&details,graph&text,read,content
+21,purpose,graph&text,context connection,content
+22,context&details,graph&text ,"read, context",content
+23,clear,graph,,
