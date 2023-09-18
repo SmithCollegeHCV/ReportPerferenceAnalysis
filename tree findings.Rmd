@@ -44,7 +44,7 @@ q4 just have one answer per id and for 7 only select q7 of my interpretations
 
 ```{r}
 
-q7syrine_tree <- rpart(Q7S ~. , data = q7syrine_data, method="class",minsplit=8)
+q7syrine_tree <- rpart(Q7S ~. , data = q7syrine_data, method="class", minsplit=8)
 rpart.plot(q7syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 
 ```
@@ -54,8 +54,8 @@ q10syrine_data <- joined_only_relevant_questions_syrine %>% dplyr::select(-c(1,2
 ```
 
 ```{r}
-q10syrine_tree <- rpart(Q10 ~ . , data = q10syrine_data)
-prp(q10syrine_tree, under= TRUE, tweak=0.9)
+q10syrine_tree <- rpart(Q10S ~ . , data = q10syrine_data, method="class",minsplit=8)
+rpart.plot(q10syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 
 ```
 clear relevant concise
@@ -65,9 +65,8 @@ q16syrine_data <- joined_only_relevant_questions_syrine %>% dplyr::select(-c(1,2
 ```
 
 ```{r}
-q16syrine_tree <- tree(Q16 ~ . , data = q16syrine_data)
-plot(q16syrine_tree)
-text(q16syrine_tree)
+q16syrine_tree <- rpart(Q16S ~ . , data = q16syrine_data, method="class",minsplit=8)
+rpart.plot(q16syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 
 ```
 # question 18
@@ -76,8 +75,20 @@ q18syrine_data <- joined_only_relevant_questions_syrine %>% dplyr::select(-c(1,2
 ```
 
 ```{r}
-q18syrine_tree <- tree(Q18 ~ . , data = q18syrine_data)
-plot(q18syrine_tree)
-text(q18syrine_tree)
+q18syrine_tree <- rpart(Q18S ~ . , data = q18syrine_data, method="class", minsplit=8)
+rpart.plot(q18syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 
 ```
+# Random Forests (doesn't work because of NAs)
+```{r}
+library(randomForest)
+set.seed(1)
+bag_Q7S = randomForest(Q7S~., 
+                          data = q7syrine_data, 
+                          mtry = 13, 
+                          importance = TRUE,
+                          na.action = na.omit)
+bag_Q7S
+
+```
+
