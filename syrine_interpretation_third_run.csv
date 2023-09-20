@@ -1,24 +1,24 @@
 UserID,Q7S,Q10S,Q16S,Q18S
 1,,,,
-2,details,textPrimary,details,immediate response
-3,clear,no text,verify reliability,threat
-4,relevant,NA,NA,NA
-5,relevant,textPrimary,"read, verify reliability",content
-6,relevant,NA,NA,NA
-7,clear,graph,context,content
-8,clear,graph,NA,NA
-9,details,graph,"read, context",content
-10,clear,graph,context,threat
-11,details,graph&text ,details,NA
-12,relevant,depends,"verify reliability, connection",threat
-13,details,textPrimary,verify reliability,NA
-14,clear,graph,NA,content
-15,clear,graph,"read , context",content
-16,details,graph,verify reliability,immediate response
-17,clear,graph&text,"read, categorize",process
-18,relevant,onlyText,details,immediate response
-19,clear,graph&text,"read, verify reliability",content
-20,details,graph&text,read,content
-21,relevant,graph&text,context connection,content
-22,details,graph&text ,"read, context",content
-23,clear,graph,,
+2,details,graph&text,details,immediate response
+3,clarity,textPrimary,verify reliability,threat
+4,relevance,,,
+5,relevance,textPrimary,verify reliability,content
+6,relevance,,,
+7,clarity,graph&text,context,content
+8,clarity,graphPrimary,,
+9,details,graphPrimary,context,content
+10,clarity,graphPrimary,context,threat
+11,details,graph&text,details,
+12,relevance,graph&text,verify reliability,threat
+13,details,textPrimary,verify reliability,
+14,clarity,graphPrimary,,content
+15,clarity,graphPrimary,context,content
+16,details,graphPrimary,verify reliability,immediate response
+17,clarity,textPrimary,context,content
+18,relevance,textPrimary,details,immediate response
+19,clarity,graph&text,verify reliability,content
+20,details,graphPrimary,details,content
+21,relevance,graph&text,context,content
+22,details,graph&text,context,content
+23,clarity,graph&text,,

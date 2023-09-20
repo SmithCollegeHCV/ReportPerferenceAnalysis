@@ -81,6 +81,7 @@ rpart.plot(q18syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 ```
 # Random Forests (doesn't work because of NAs)
 ```{r}
+library(devtools)
 library(randomForest)
 set.seed(1)
 bag_Q7S = randomForest(Q7S~., 
