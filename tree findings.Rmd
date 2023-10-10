@@ -18,6 +18,8 @@ library(ggplot2)
 library(tree)
 library(dplyr)
 library(rpart.plot)
+library(randomForest)
+
 ```
 
 ```{r}
@@ -79,22 +81,68 @@ q18syrine_tree <- rpart(Q18S ~ . , data = q18syrine_data, method="class", minspl
 rpart.plot(q18syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 
 ```
-# Random Forests (doesn't work because of NAs)
+# Random Forests Q7
 ```{r}
-library(randomForest)
 # Check data structure and levels
 q7syrine_data <- na.omit(q7syrine_data)
 q7syrine_data$Q7S <- droplevels(q7syrine_data$Q7S, exclude = "")
 
 bag_Q7S = randomForest(Q7S ~ ., 
                        data = q7syrine_data, 
-                       mtry = 13, 
+                       mtry = 12, 
                        importance = TRUE)
 
 
 # Print the model
 bag_Q7S
 
+```
+
+# Random Forests Q10
+```{r}
+
+q10syrine_data <- na.omit(q10syrine_data)
+q10syrine_data$Q10S <- droplevels(q10syrine_data$Q10S, exclude = "")
+
+bag_Q10S = randomForest(Q10S ~ ., 
+                       data = q10syrine_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+
+
+# Print the model
+bag_Q10S
+
+```
+# Random Forests Q16
+```{r}
+
+q16syrine_data <- na.omit(q16syrine_data)
+q16syrine_data$Q16S <- droplevels(q16syrine_data$Q16S, exclude = "")
+
+bag_Q16S = randomForest(Q16S ~ ., 
+                       data = q16syrine_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+
+
+# Print the model
+bag_Q16S
 
 ```
 
+# Random Forests Q18
+```{r}
+q18syrine_data <- na.omit(q18syrine_data)
+q18syrine_data$Q18S <- droplevels(q18syrine_data$Q18S, exclude = "")
+
+bag_Q18S = randomForest(Q18S ~ ., 
+                       data = q18syrine_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+
+
+# Print the model
+bag_Q18S
+
+```
