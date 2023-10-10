@@ -81,15 +81,20 @@ rpart.plot(q18syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 ```
 # Random Forests (doesn't work because of NAs)
 ```{r}
-library(devtools)
 library(randomForest)
-set.seed(1)
-bag_Q7S = randomForest(Q7S~., 
-                          data = q7syrine_data, 
-                          mtry = 13, 
-                          importance = TRUE,
-                          na.action = na.omit)
+# Check data structure and levels
+q7syrine_data <- na.omit(q7syrine_data)
+q7syrine_data$Q7S <- droplevels(q7syrine_data$Q7S, exclude = "")
+
+bag_Q7S = randomForest(Q7S ~ ., 
+                       data = q7syrine_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+
+
+# Print the model
 bag_Q7S
+
 
 ```
 
