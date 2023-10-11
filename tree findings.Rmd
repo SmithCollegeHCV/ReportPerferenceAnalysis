@@ -91,10 +91,12 @@ bag_Q7S = randomForest(Q7S ~ .,
                        data = q7syrine_data, 
                        mtry = 12, 
                        importance = TRUE)
+```
 
+```{r}
 
 # Print the model
-bag_Q7S
+varImpPlot(bag_Q7S)
 
 ```
 
