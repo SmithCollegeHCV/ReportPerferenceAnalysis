@@ -19,6 +19,8 @@ library(tree)
 library(dplyr)
 library(rpart.plot)
 library(randomForest)
+library(gridExtra)
+library(cowplot)
 
 ```
 
@@ -83,22 +85,35 @@ rpart.plot(q18syrine_tree, type = 4, clip.right.labs = FALSE, extra=102)
 ```
 # Random Forests Q7
 ```{r}
-# Check data structure and levels
+# Bag plot q7 for 13 predictor 
 q7syrine_data <- na.omit(q7syrine_data)
 q7syrine_data$Q7S <- droplevels(q7syrine_data$Q7S, exclude = "")
 
-bag_Q7S = randomForest(Q7S ~ ., 
+bag_Q7S_bagged = randomForest(Q7S ~ ., 
                        data = q7syrine_data, 
-                       mtry = 12, 
+                       mtry = 13, 
                        importance = TRUE)
+plot1 <- varImpPlot(bag_Q7S_bagged)
+png("q7_bagged.png")
+dev.off()
+
+# Create the second plot and save it as an image
+bag_Q7S_randomforest = randomForest(Q7S ~ ., 
+                       data = q7syrine_data, 
+                       importance = TRUE)
+plot2 <- varImpPlot(bag_Q7S_randomforest)
+png("q7_randomforest.png")
+dev.off()
+
+#png("q7_randomforest.png")
+#ggdraw() + 
+#  draw_image("q7_bagged.png", width = 0.5) + 
+#  draw_image("q7_randomforest.png", width = 0.5, x = 0.5)
 ```
 
-```{r}
 
-# Print the model
-varImpPlot(bag_Q7S)
-
-```
+side by side bagged and randomforest. check if q4 as important as it appears
+run each side by side with mtry1 and without. 
 
 # Random Forests Q10
 ```{r}
@@ -106,14 +121,18 @@ varImpPlot(bag_Q7S)
 q10syrine_data <- na.omit(q10syrine_data)
 q10syrine_data$Q10S <- droplevels(q10syrine_data$Q10S, exclude = "")
 
-bag_Q10S = randomForest(Q10S ~ ., 
+bag_Q10S_bagged = randomForest(Q10S ~ ., 
                        data = q10syrine_data, 
                        mtry = 13, 
                        importance = TRUE)
+varImpPlot(bag_Q10S_bagged)
 
-
+bag_Q10S_randomforests = randomForest(Q10S ~ ., 
+                       data = q10syrine_data, 
+                       importance = TRUE)
 # Print the model
-bag_Q10S
+varImpPlot(bag_Q10S_randomforests)
+
 
 ```
 # Random Forests Q16
@@ -122,14 +141,19 @@ bag_Q10S
 q16syrine_data <- na.omit(q16syrine_data)
 q16syrine_data$Q16S <- droplevels(q16syrine_data$Q16S, exclude = "")
 
-bag_Q16S = randomForest(Q16S ~ ., 
+
+
+bag_Q16S_bagged = randomForest(Q16S ~ ., 
                        data = q16syrine_data, 
                        mtry = 13, 
                        importance = TRUE)
+varImpPlot(bag_Q16S_bagged)
 
-
+bag_Q16S_randomforests = randomForest(Q16S ~ ., 
+                       data = q16syrine_data, 
+                       importance = TRUE)
 # Print the model
-bag_Q16S
+varImpPlot(bag_Q16S_randomforests)
 
 ```
 
@@ -138,13 +162,17 @@ bag_Q16S
 q18syrine_data <- na.omit(q18syrine_data)
 q18syrine_data$Q18S <- droplevels(q18syrine_data$Q18S, exclude = "")
 
-bag_Q18S = randomForest(Q18S ~ ., 
+bag_Q18S_bagged = randomForest(Q18S ~ ., 
                        data = q18syrine_data, 
                        mtry = 13, 
                        importance = TRUE)
+varImpPlot(bag_Q18S_bagged)
 
-
+bag_Q18S_randomforests = randomForest(Q18S ~ ., 
+                       data = q18syrine_data, 
+                       importance = TRUE)
 # Print the model
-bag_Q18S
+varImpPlot(bag_Q18S_randomforests)
+
 
 ```
