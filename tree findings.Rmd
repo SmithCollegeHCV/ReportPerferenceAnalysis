@@ -110,14 +110,13 @@ dev.off()
 #  draw_image("q7_bagged.png", width = 0.5) + 
 #  draw_image("q7_randomforest.png", width = 0.5, x = 0.5)
 ```
-Q12 most ideal layout for strategic decisions trategic layout for  ranks high in both accuarcy and purity (1 accuracy and 3rd purity). 
-q14 same but for operational decisions.
+We find that:
 
+- Q4 (how often do the reports contain charts/grphs) ranks among the top five most accurate (#4 in bagged model and #3 in random forsets) and pure(#4 in bagged model and #3 in randomforests) predictors in in determining what makes a report useful 
 
-q4 how often do the reports contain charts/grphs
+- Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#1 in bagged model and #4 in random forsets) and pure(#3 in bagged model and #5 in randomforests) predictors in determining what makes a report useful
 
-side by side bagged and randomforest. check if q4 as important as it appears
-run each side by side with mtry1 and without. 
+(q7 is not always consistent across syrine's and emily's models)
 
 # Random Forests Q10
 ```{r}
@@ -139,7 +138,13 @@ varImpPlot(bag_Q10S_randomforests)
 
 
 ```
-Q14 and q5: do you interact with reports by makes notes or highlighting. q10 is consitent across q7
+We find that:
+
+- Q14 (most ideal layout for Operational decisions) ranks among the top five most accurate (#1 in bagged model and #2 in random forsets) and pure(#3 in bagged model and randomforests) predictors in determining the user rankings of layout images preference
+
+- Q5 (Do you interact with reports by making annotations, notes or highlighting?) ranks among the top five most accurate(#2 in bagged model and #1 in random forsets) and pure (#1 in bagged model and #4 in random forsets) predictors in determining the user rankings of layout images preference
+
+q10 is consitent across syrine's and emily's models
 # Random Forests Q16
 ```{r}
 
@@ -161,7 +166,15 @@ bag_Q16S_randomforests = randomForest(Q16S ~ .,
 varImpPlot(bag_Q16S_randomforests)
 
 ```
-Q16: process to maing decision Q5 and q11 tactical. changes in q 11
+We find that:
+- Q11 (the tactical decision type percentage) ranks among the top five most accurate (#2 in bagged model and #2 in random forsets) and pure (#1 in bagged model and #1 in randomforests) predictors in determining the steps a user takes from reading a report to making a decision
+
+- Q5 (Do you interact with reports by making annotations, notes or highlighting?) ranks among the top five most accurate (#1 in bagged model and #1 in random forsets) and pure (#4 in bagged model and #8 in randomforests*) predictors in determining the steps a user takes from reading a report to making a decision
+
+(q16 is not always consistent across syrine's and emily's models)
+
+
+
 # Random Forests Q18
 ```{r}
 q18syrine_data <- na.omit(q18syrine_data)
@@ -182,7 +195,8 @@ varImpPlot(bag_Q18S_randomforests)
 
 ```
 
+We find that:
 
-q12 is important across multiple runs
+- Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#2 in bagged model and #3 in random forsets) and pure(#1 in bagged model and #1 in randomforests) predictors in determining how a time sensitive report might differ from a non-time sensitive report.
 
-q12 and q15 are showing
+(q18 is consistent across syrine's and emily's models)
