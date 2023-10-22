@@ -19,9 +19,6 @@ library(tree)
 library(dplyr)
 library(rpart.plot)
 library(randomForest)
-library(gridExtra)
-library(cowplot)
-
 ```
 
 ```{r}
@@ -112,7 +109,7 @@ dev.off()
 ```
 We find that:
 
-- Q4 (how often do the reports contain charts/grphs) ranks among the top five most accurate (#4 in bagged model and #3 in random forsets) and pure(#4 in bagged model and #3 in randomforests) predictors in in determining what makes a report useful 
+- Q4 (how often do the reports contain charts/graphs) ranks among the top five most accurate (#4 in bagged model and #3 in random forsets) and pure(#4 in bagged model and #3 in randomforests) predictors in in determining what makes a report useful 
 
 - Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#1 in bagged model and #4 in random forsets) and pure(#3 in bagged model and #5 in randomforests) predictors in determining what makes a report useful
 
@@ -200,3 +197,178 @@ We find that:
 - Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#2 in bagged model and #3 in random forsets) and pure(#1 in bagged model and #1 in randomforests) predictors in determining how a time sensitive report might differ from a non-time sensitive report.
 
 (q18 is consistent across syrine's and emily's models)
+
+
+### Esa Trees
+
+```{r}
+responses_esa <- read.csv("esa_interpretations.csv" , colClasses=c(rep('factor', 9)))
+responses_esa
+ottley_crouser_final <- read.csv("ottley_crouser_final_cleaned_new_cols.csv")
+ottley_crouser_final$UserID=as.factor(ottley_crouser_final$UserID)
+
+joined_raw_esa <- responses_esa %>% 
+  full_join(ottley_crouser_final)
+joined_only_relevant_questions_esa <- joined_raw_esa %>% dplyr::select(-c(Q6, Q7,Q8, Q9,Q10, Q16, Q18, Q19, Q20))
+
+
+```
+# question 7
+```{r}
+q7esa_data <- joined_only_relevant_questions_esa%>%
+  select(-UserID, -Q10S, -Q16S,-Q18S)
+```
+
+
+
+```{r}
+
+q7esa_tree <- rpart(Q7S ~. , data = q7esa_data, method="class", minsplit=8)
+rpart.plot(q7esa_tree, type = 4, clip.right.labs = FALSE, extra=102)
+
+```
+
+# question 10
+```{r}
+q10esa_data <- joined_only_relevant_questions_esa %>% dplyr::select(-c(1,2,4,5)) 
+```
+
+```{r}
+q10esa_tree <- rpart(Q10S ~ . , data = q10esa_data, method="class",minsplit=8)
+rpart.plot(q10esa_tree, type = 4, clip.right.labs = FALSE, extra=102)
+
+```
+clear relevant concise
+# question 16
+```{r}
+q16esa_data <- joined_only_relevant_questions_esa %>% dplyr::select(-c(1,2,3,5)) 
+```
+
+```{r}
+q16esa_tree <- rpart(Q16S ~ . , data = q16esa_data, method="class",minsplit=8)
+rpart.plot(q16esa_tree, type = 4, clip.right.labs = FALSE, extra=102)
+
+```
+
+
+# question 18
+
+```{r}
+q18esa_data <- joined_only_relevant_questions_esa %>% dplyr::select(-c(1,2,3,4)) 
+```
+
+```{r}
+q18esa_tree <- rpart(Q18S ~ . , data = q18esa_data, method="class", minsplit=8)
+rpart.plot(q18esa_tree, type = 4, clip.right.labs = FALSE, extra=102)
+
+```
+
+The decision tree results are very different
+
+### Esa rnadom forests:
+
+
+# random Forests Q7:
+
+```{r}
+
+q7esa_data <- na.omit(q7esa_data)
+q7esa_data$Q7S <- droplevels(q7esa_data$Q7S, exclude = "")
+
+bag_Q7S_bagged = randomForest(Q7S ~ ., 
+                       data = q7esa_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+varImpPlot(bag_Q7S_bagged)
+
+bag_Q7S_randomforests = randomForest(Q7S ~ ., 
+                       data = q7esa_data, 
+                       importance = TRUE)
+# Print the model
+varImpPlot(bag_Q7S_randomforests)
+
+
+```
+
+We find that:
+
+- Q11 Operarional reports (percentage of ) ranks among the top five most accurate (#1 in bagged model and #4 in random forsets) and pure(#2 in bagged model and #2 in randomforests) predictors in in determining what makes a report useful 
+
+- Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#5 in bagged model and #1 in random forsets) and pure(#3 in bagged model and #3 in randomforests) predictors in determining what makes a report useful
+
+
+
+# Random Forests Q10
+
+```{r}
+q10esa_data <- na.omit(q10esa_data)
+q10esa_data$Q10S <- droplevels(q10esa_data$Q10S, exclude = "")
+
+bag_Q10S_bagged = randomForest(Q10S ~ ., 
+                       data = q10esa_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+varImpPlot(bag_Q10S_bagged)
+
+bag_Q10S_randomforests = randomForest(Q10S ~ ., 
+                       data = q10esa_data, 
+                       importance = TRUE)
+# Print the model
+varImpPlot(bag_Q10S_randomforests)
+
+
+```
+We find that:
+
+- Q11 (percentage of tactical, strategic, and operational decisions made) ranks among the top five most accurate and pure predictors in determining the user rankings of layout images preference
+
+- Q5 (Do you interact with reports by making annotations, notes or highlighting?) ranks among the top five most accurate(#3 in bagged model and #8 in random forsets) and pure (#4 in bagged model and #4 in random forsets) predictors in determining the user rankings of layout images preference
+
+# Random Forests Q16
+```{r}
+q16esa_data <- na.omit(q16esa_data)
+q16esa_data$Q16S <- droplevels(q16esa_data$Q16S, exclude = "")
+
+
+
+bag_Q16S_bagged = randomForest(Q16S ~ ., 
+                       data = q16esa_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+varImpPlot(bag_Q16S_bagged)
+
+bag_Q16S_randomforests = randomForest(Q16S ~ ., 
+                       data = q16esa_data, 
+                       importance = TRUE)
+# Print the model
+varImpPlot(bag_Q16S_randomforests)
+
+```
+We find that:
+- Q15 (most ideal layout for Other (not strategic, tactical, or operational) decisions) ranks among the top five most accurate (#1 in bagged model and random forsets) and pure (#1 in bagged model and randomforests) predictors in determining the steps a user takes from reading a report to making a decision
+
+# Random Forests Q18
+```{r}
+q18esa_data <- na.omit(q18esa_data)
+q18esa_data$Q18S <- droplevels(q18esa_data$Q18S, exclude = "")
+
+bag_Q18S_bagged = randomForest(Q18S ~ ., 
+                       data = q18esa_data, 
+                       mtry = 13, 
+                       importance = TRUE)
+varImpPlot(bag_Q18S_bagged)
+
+bag_Q18S_randomforests = randomForest(Q18S ~ ., 
+                       data = q18esa_data, 
+                       importance = TRUE)
+# Print the model
+varImpPlot(bag_Q18S_randomforests)
+
+
+```
+
+We find that:
+
+- Q15 most ideal layout for Other (not strategic, tactical, or operational) decisions) ranks among the top five most accurate (#3 in bagged model and #4 in random forsets) and pure(#4 in bagged model and #4 in randomforests) predictors in determining how a time sensitive report might differ from a non-time sensitive report.
+
+- Q11 (percentage of tactical, strategic, and operational decisions made) ranks among the top five most accurate and pure predictors in determining how a time sensitive report might differ from a non-time sensitive report.
