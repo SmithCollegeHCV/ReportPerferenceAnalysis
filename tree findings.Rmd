@@ -24,7 +24,7 @@ library(randomForest)
 ```{r}
 responses_syrine <- read.csv("syrine_interpretation_third_run.csv" , colClasses=c(rep('factor', 9)))
 responses_syrine
-ottley_crouser_final <- read.csv("ottley_crouser_final_cleaned_new_cols.csv")
+ottley_crouser_final <- read.csv("ottley_crouser_final_cleaned_without11.csv")
 ottley_crouser_final$UserID=as.factor(ottley_crouser_final$UserID)
 
 joined_raw_syrine <- responses_syrine %>% 
@@ -39,7 +39,6 @@ q7syrine_data <- joined_only_relevant_questions_syrine%>%
   select(-UserID, -Q10S, -Q16S,-Q18S)
 ```
 
-q4 just have one answer per id and for 7 only select q7 of my interpretations
 
 
 
@@ -170,6 +169,9 @@ We find that:
 
 (q16 is not always consistent across syrine's and emily's models)
 
+# after removing q11:
+q15 and q14 take up the top 4 places in acuuracy and purity
+
 
 
 # Random Forests Q18
@@ -204,7 +206,7 @@ We find that:
 ```{r}
 responses_esa <- read.csv("esa_interpretations.csv" , colClasses=c(rep('factor', 9)))
 responses_esa
-ottley_crouser_final <- read.csv("ottley_crouser_final_cleaned_new_cols.csv")
+ottley_crouser_final <- read.csv("ottley_crouser_final_cleaned_without11.csv")
 ottley_crouser_final$UserID=as.factor(ottley_crouser_final$UserID)
 
 joined_raw_esa <- responses_esa %>% 
@@ -297,6 +299,9 @@ We find that:
 - Q12 (the most ideal layout for strategic decisions) ranks among the top five most accurate (#5 in bagged model and #1 in random forsets) and pure(#3 in bagged model and #3 in randomforests) predictors in determining what makes a report useful
 
 
+# after removing q11:
+
+q13 takes up the second most important place when it comes purity and accuracy
 
 # Random Forests Q10
 
@@ -324,6 +329,10 @@ We find that:
 
 - Q5 (Do you interact with reports by making annotations, notes or highlighting?) ranks among the top five most accurate(#3 in bagged model and #8 in random forsets) and pure (#4 in bagged model and #4 in random forsets) predictors in determining the user rankings of layout images preference
 
+# after removing q11:
+
+q15 takes up the first or second most important place when it comes purity and accuracy
+
 # Random Forests Q16
 ```{r}
 q16esa_data <- na.omit(q16esa_data)
@@ -346,6 +355,10 @@ varImpPlot(bag_Q16S_randomforests)
 ```
 We find that:
 - Q15 (most ideal layout for Other (not strategic, tactical, or operational) decisions) ranks among the top five most accurate (#1 in bagged model and random forsets) and pure (#1 in bagged model and randomforests) predictors in determining the steps a user takes from reading a report to making a decision
+
+# after removing q11:
+
+q13 appears as an important factor for purity and accuracy
 
 # Random Forests Q18
 ```{r}
@@ -372,3 +385,7 @@ We find that:
 - Q15 most ideal layout for Other (not strategic, tactical, or operational) decisions) ranks among the top five most accurate (#3 in bagged model and #4 in random forsets) and pure(#4 in bagged model and #4 in randomforests) predictors in determining how a time sensitive report might differ from a non-time sensitive report.
 
 - Q11 (percentage of tactical, strategic, and operational decisions made) ranks among the top five most accurate and pure predictors in determining how a time sensitive report might differ from a non-time sensitive report.
+# after removing q11:
+
+q13 and q 5 appears as an important factors for purity and accuracy
+
