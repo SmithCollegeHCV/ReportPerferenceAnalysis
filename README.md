@@ -1,2 +1,1 @@
-ReportPerferenceAnalysis:
-Research exploring how individual differences affect what people value in analyzing reports
+The project explores how individual differences affect what people value in analyzing reports
